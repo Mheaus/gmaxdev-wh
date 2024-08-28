@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div>
-      <ul>
+    <div className="flex h-12 bg-lime-700">
+      <ul className="flex gap-3">
         <li>
-          <Link to="/">Accueil</Link>
+          <Link to="/">Create Employee</Link>
         </li>
         <li>
-          <Link to="/about">A Propos</Link>
+          <Link to="/about">View Current Employees</Link>
         </li>
       </ul>
     </div>
