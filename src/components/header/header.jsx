@@ -15,7 +15,7 @@ export default function Header() {
         </ul>
       </div>
       <div>
-        <img src={logo} alt="" />
+        <img src={logo} alt="logo" />
         <i></i>
       </div>
     </div>
