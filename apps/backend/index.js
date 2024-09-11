@@ -1,0 +1,47 @@
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');  // Import de path pour gérer les chemins
+const app = express();
+const port = 3001;
+
+// Utilisation de CORS pour autoriser les requêtes depuis le frontend
+app.use(cors({
+  origin: 'http://localhost:5173', // Origine du frontend 
+}));
+
+// Middleware pour traiter les données JSON envoyées par le frontend
+app.use(express.json());
+
+// Je définis le chemin vers employees.json dans le dossier api
+const filePath = path.join(__dirname, 'api', 'employees.json');
+
+// Endpoint pour recevoir les données et les stocker dans un fichier JSON
+app.post('/api/employees', (req, res) => {
+  const newEmployee = req.body;
+
+  // Lire le fichier existant (ou créer un nouveau fichier s'il n'existe pas)
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    let employees = [];
+
+    if (!err && data) {
+      employees = JSON.parse(data);
+    }
+
+    // Ajouter les nouvelles données
+    employees.push(newEmployee);
+
+    // Écrire les données mises à jour dans le fichier JSON
+    fs.writeFile(filePath, JSON.stringify(employees, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Erreur lors de l\'enregistrement des données' });
+      }
+      res.status(201).json({ message: 'Données sauvegardées avec succès' });
+    });
+  });
+});
+
+// Démarrer le serveur
+app.listen(port, () => {
+  console.log(`Serveur backend démarré sur http://localhost:${port}`);
+});

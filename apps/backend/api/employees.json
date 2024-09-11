@@ -1,0 +1,24 @@
+[
+  {
+    "firstName": "test",
+    "lastName": "test",
+    "dateOfBirth": "test",
+    "startDate": "test",
+    "street": "test",
+    "city": "test",
+    "state": "test",
+    "zipCode": "test",
+    "department": "test"
+  },
+  {
+    "firstName": "test",
+    "lastName": "test",
+    "dateOfBirth": "test",
+    "startDate": "test",
+    "street": "test",
+    "city": "test",
+    "state": "test",
+    "zipCode": "test",
+    "department": "test"
+  }
+]
