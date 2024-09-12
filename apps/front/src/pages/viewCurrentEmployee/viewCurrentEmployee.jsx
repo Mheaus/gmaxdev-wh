@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { filterEmployees } from '../../components/filterEmployees';
 
 export default function ViewEmployee() {
-  const [employees, setEmployees] = useState([]);  // Initialiser avec un tableau vide
-  const [loading, setLoading] = useState(true);    // Pour gérer l'état de chargement
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);    
   const [error, setError] = useState(null);        // Pour gérer les erreurs
+  const [currentPage, setCurrentPage] = useState(1); // Page actuelle
+  const [employeesPerPage, setEmployeesPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");  // Requête de recherche
 
   // Utiliser useEffect pour effectuer la requête au backend lors du premier rendu
   useEffect(() => {
@@ -12,7 +16,7 @@ export default function ViewEmployee() {
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des employés");
         }
-        return response.json();  // Convertir la réponse en JSON
+        return response.json();
       })
       .then((data) => {
         setEmployees(data);  // Mettre à jour le state avec les données
@@ -22,8 +26,33 @@ export default function ViewEmployee() {
         setError(error.message);  // Gérer les erreurs
         setLoading(false);
       });
+  }, []);  // Le tableau vide [] sert à exécuté uniquement useEffect au montage du composant
 
-  }, []);  // Le tableau vide [] fait que ce useEffect est exécuté uniquement au montage du composant
+  // Filtrer les employés en fonction de la recherche
+  const filteredEmployees = filterEmployees(employees, searchQuery);
+
+  // Pagination
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = filteredEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee);
+
+  const goToNextPage = () => {
+    if (currentPage < Math.ceil(filteredEmployees.length / employeesPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Gérer le changement du nombre d'entrées à afficher par page
+  const handleEntriesChange = (event) => {
+    setEmployeesPerPage(Number(event.target.value));
+    setCurrentPage(1);  // Reset à la première page lorsque le nombre d'entrées change
+  };
 
   if (loading) {
     return <div>Chargement des employés...</div>;  // Affichage en cours de chargement
@@ -37,10 +66,28 @@ export default function ViewEmployee() {
     <div className="flex flex-col items-center mx-20 my-10">
       <div className="flex justify-between w-full">
         <div>
-          Show <input id="entie_show" className="w-10 border" type="text" /> entries
+          Show
+          <select
+            id="entries_show"
+            className="ml-2 border"
+            value={employeesPerPage}
+            onChange={handleEntriesChange}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+          entries
         </div>
         <div>
-          Search <input className="border" type="text" />
+          Search
+          <input
+            className="border"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search employees..."
+          />
         </div>
       </div>
       <div className="w-full">
@@ -65,7 +112,7 @@ export default function ViewEmployee() {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee, index) => (
+            {currentEmployees.map((employee, index) => (
               <tr
                 key={index}
                 className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
@@ -86,11 +133,18 @@ export default function ViewEmployee() {
       </div>
       <div className="flex justify-between w-full mt-5">
         <div>
-          Showing 0 to {employees.length} of {employees.length}
+          Showing {indexOfFirstEmployee + 1} to {Math.min(indexOfLastEmployee, filteredEmployees.length)} of {filteredEmployees.length}
         </div>
         <div className="flex justify-between w-40">
-          <a href="">Previous</a>
-          <a href="">Next</a>
+          <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === Math.ceil(filteredEmployees.length / employeesPerPage)} // Calcul le nombre de page nécessaire et arrondi au supérieur
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
