@@ -59,11 +59,11 @@ export default function CreateEmployee() {
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Date of Birth</p>
-            <input className="px-2 py-1 border" type="text" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
+            <input className="px-2 py-1 border" type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Start Date</p>
-            <input className="px-2 py-1 border" type="text" name="startDate" value={formData.startDate} onChange={handleChange} />
+            <input className="px-2 py-1 border" type="date" name="startDate" value={formData.startDate} onChange={handleChange} />
           </div>
         </div>
       </section>

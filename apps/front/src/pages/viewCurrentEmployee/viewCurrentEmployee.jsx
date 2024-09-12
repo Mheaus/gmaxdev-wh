@@ -1,30 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ViewEmployee() {
-  const [employees, setEmployees] = useState([
-    {
-      firstName: "John",
-      lastName: "Doe",
-      startDate: "2022-05-01",
-      department: "HR",
-      birthDate: "1990-06-12",
-      street: "123 Main St",
-      city: "New York",
-      state: "NY",
-      zipCode: "10001",
-    },
-    {
-      firstName: "Jane",
-      lastName: "Smith",
-      startDate: "2023-03-15",
-      department: "Finance",
-      birthDate: "1985-02-24",
-      street: "456 Elm St",
-      city: "Los Angeles",
-      state: "CA",
-      zipCode: "90001",
-    },
-  ]);
+  const [employees, setEmployees] = useState([]);  // Initialiser avec un tableau vide
+  const [loading, setLoading] = useState(true);    // Pour gérer l'état de chargement
+  const [error, setError] = useState(null);        // Pour gérer les erreurs
+
+  // Utiliser useEffect pour effectuer la requête au backend lors du premier rendu
+  useEffect(() => {
+    fetch("http://localhost:3001/api/employees")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des employés");
+        }
+        return response.json();  // Convertir la réponse en JSON
+      })
+      .then((data) => {
+        setEmployees(data);  // Mettre à jour le state avec les données
+        setLoading(false);   // Désactiver l'état de chargement
+      })
+      .catch((error) => {
+        setError(error.message);  // Gérer les erreurs
+        setLoading(false);
+      });
+
+  }, []);  // Le tableau vide [] fait que ce useEffect est exécuté uniquement au montage du composant
+
+  if (loading) {
+    return <div>Chargement des employés...</div>;  // Affichage en cours de chargement
+  }
+
+  if (error) {
+    return <div>Erreur : {error}</div>;  // Affichage en cas d'erreur
+  }
 
   return (
     <div className="flex flex-col items-center mx-20 my-10">
@@ -61,7 +68,7 @@ export default function ViewEmployee() {
             {employees.map((employee, index) => (
               <tr
                 key={index}
-                className={index % 2 === 0 ? "bg-white" : "bg-gray-100"} // Permet de changer la couleur de fond en fonction des chiffres paires / impaires
+                className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
               >
                 <td className="px-4 py-2">{employee.firstName}</td>
                 <td className="px-4 py-2">{employee.lastName}</td>
@@ -78,7 +85,9 @@ export default function ViewEmployee() {
         </table>
       </div>
       <div className="flex justify-between w-full mt-5">
-        <div>Showing 0 to {employees.length} of 0 {employees.length}</div>
+        <div>
+          Showing 0 to {employees.length} of {employees.length}
+        </div>
         <div className="flex justify-between w-40">
           <a href="">Previous</a>
           <a href="">Next</a>

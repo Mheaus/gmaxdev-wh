@@ -41,6 +41,17 @@ app.post('/api/employees', (req, res) => {
   });
 });
 
+// **Nouvel endpoint pour récupérer les employés**
+app.get('/api/employees', (req, res) => {
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Erreur lors de la lecture des employés' });
+    }
+
+    res.json(JSON.parse(data || '[]'));  // Retourne les employés sous forme de JSON
+  });
+});
+
 // Démarrer le serveur
 app.listen(port, () => {
   console.log(`Serveur backend démarré sur http://localhost:${port}`);
