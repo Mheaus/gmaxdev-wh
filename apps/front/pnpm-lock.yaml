@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@gmaxdev/dropdown-plugin':
+        specifier: ^0.0.1
+        version: 0.0.1
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -321,6 +324,9 @@ packages:
   '@eslint/object-schema@2.1.4':
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@gmaxdev/dropdown-plugin@0.0.1':
+    resolution: {integrity: sha512-sVLE+YmmTs0aXiqKzVRGwHS7hIV1F8iu9rmNdcGcvU/iUm3t/gSQJVPVM3je4No3dF/NKOtAl8ijQe9BJ2YXnA==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -1909,6 +1915,11 @@ snapshots:
   '@eslint/js@9.9.0': {}
 
   '@eslint/object-schema@2.1.4': {}
+
+  '@gmaxdev/dropdown-plugin@0.0.1':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
