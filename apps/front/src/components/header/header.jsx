@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 
 export default function Header() {
   const location = useLocation(); // Récupère l'URL actuelle
-
+  
   return (
     <div className="flex items-center justify-between bg-lime-700">
       <div>
