@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "jsx": "react-jsx", // Support JSX avec TypeScript
+    "strict": true, // Active le mode strict
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"], // Dossier à inclure dans la compilation
+  "exclude": ["node_modules"] // Fichiers à exclure
+}
