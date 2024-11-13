@@ -3,13 +3,13 @@ import { filterEmployees } from '../../components/filterEmployees';
 
 export default function ViewEmployee() {
   const [employees, setEmployees] = useState([]);
-  const [loading, setLoading] = useState(true);    
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);        // Pour gérer les erreurs
   const [currentPage, setCurrentPage] = useState(1); // Page actuelle
   const [employeesPerPage, setEmployeesPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");  // Requête de recherche
 
-  // Utiliser useEffect pour effectuer la requête au backend lors du premier rendu
+  // J'utilise useEffect pour effectuer la requête au backend lors du premier rendu
   useEffect(() => {
     fetch("http://localhost:3001/api/employees")
       .then((response) => {

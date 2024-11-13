@@ -1,44 +1,31 @@
 import { useState } from "react";
 import DropdownMenu from "@gmaxdev/dropdown-plugin";
+import departments from "../../data/departments";
 
 export default function CreateEmployee() {
-  // États pour stocker les valeurs des inputs
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    startDate: "",
-    street: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    department: "",
-  });
-
-  // Fonction qui se déclenche lors du changement dans un input
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
+  const options = [
+    { value: 'option1', label: 'tata' },
+    { value: 'option2', label: 'tete' },
+    { value: 'option3', label: 'titi' },
+    { value: 'option4', label: 'toto' }
+  ];
   // Fonction qui se déclenche lors de la soumission du formulaire
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
 
     fetch("http://localhost:3001/api/employees", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        // Ajouter ici ce que tu veux faire après la soumission (reset du form, affichage d'un message, etc.)
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -51,43 +38,19 @@ export default function CreateEmployee() {
         <div className="flex flex-wrap gap-6 mb-4">
           <div className="flex items-center">
             <p className="w-32 mr-4">First Name</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="firstName" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Last Name</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="lastName" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Date of Birth</p>
-            <input
-              className="px-2 py-1 border"
-              type="date"
-              name="birthDate"
-              value={formData.birthDate}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="date" name="birthDate" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Start Date</p>
-            <input
-              className="px-2 py-1 border"
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="date" name="startDate" />
           </div>
         </div>
       </section>
@@ -96,43 +59,19 @@ export default function CreateEmployee() {
         <div className="flex flex-wrap gap-6 mb-4">
           <div className="flex items-center">
             <p className="w-32 mr-4">Street</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="street"
-              value={formData.street}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="street" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">City</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="city" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">State</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="state" />
           </div>
           <div className="flex items-center">
             <p className="w-32 mr-4">Zip Code</p>
-            <input
-              className="px-2 py-1 border"
-              type="text"
-              name="zipCode"
-              value={formData.zipCode}
-              onChange={handleChange}
-            />
+            <input className="px-2 py-1 border" type="text" name="zipCode" />
           </div>
         </div>
       </section>
@@ -144,9 +83,8 @@ export default function CreateEmployee() {
             className="flex-grow px-2 py-1 border"
             type="text"
             name="department"
-            value={formData.department}
-            onChange={handleChange}
           />
+          <DropdownMenu options={departments}/>
         </div>
       </section>
 
@@ -156,8 +94,6 @@ export default function CreateEmployee() {
       >
         Submit
       </button>
-
-      <DropdownMenu options={[]} />
     </form>
   );
 }

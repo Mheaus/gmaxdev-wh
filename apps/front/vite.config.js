@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   resolve: {
     alias: {
-      '@gmaxdev/dropdown-plugin': '/node_modules/@gmaxdev/dropdown-plugin/dist/index.esm.js' // Assure-toi que l'alias pointe vers le bon fichier
+      '@gmaxdev/dropdown-plugin': '/node_modules/@gmaxdev/dropdown-plugin/dist/index.esm.js'
     }
   },
   plugins: [react()],
