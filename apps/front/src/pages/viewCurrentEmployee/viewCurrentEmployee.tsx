@@ -49,7 +49,7 @@ export default function ViewEmployee() {
   };
 
   // Gérer le changement du nombre d'entrées à afficher par page
-  const handleEntriesChange = (event) => {
+  const handleEntriesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEmployeesPerPage(Number(event.target.value));
     setCurrentPage(1);  // Reset à la première page lorsque le nombre d'entrées change
   };

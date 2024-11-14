@@ -1,4 +1,5 @@
 import { useState } from "react";
+// @ts-ignore: DropdownMenu
 import DropdownMenu from "@gmaxdev/dropdown-plugin";
 import departments from "../../data/departments.json";
 import "@gmaxdev/dropdown-plugin/dist/style.css";
