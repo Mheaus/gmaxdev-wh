@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "target": "es6",
     "module": "esnext",
     "jsx": "react-jsx", // Support JSX avec TypeScript

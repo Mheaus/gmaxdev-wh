@@ -2,4 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("../../../packages/dropdown-plugin/dist/style.css");

@@ -1,15 +1,10 @@
 import { useState } from "react";
 import DropdownMenu from "@gmaxdev/dropdown-plugin";
-import departments from "../../data/departments";
+import departments from "../../data/departments.json";
+import "@gmaxdev/dropdown-plugin/dist/style.css";
 
 export default function CreateEmployee() {
-  const options = [
-    { value: 'option1', label: 'tata' },
-    { value: 'option2', label: 'tete' },
-    { value: 'option3', label: 'titi' },
-    { value: 'option4', label: 'toto' }
-  ];
-  // Fonction qui se déclenche lors de la soumission du formulaire
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -76,15 +71,16 @@ export default function CreateEmployee() {
         </div>
       </section>
 
-      <section className="w-2/4 p-6 mt-10 bg-gray-300 rounded-2xl">
-        <div className="flex items-center w-full">
+      <section className="relative w-2/4 p-6 mt-10 bg-gray-300 rounded-2xl"> {/* Ajout de relative ici */}
+        <div className="z-0 flex items-center w-full">
           <p className="w-32 mr-4">Department</p>
-          <input
+          {/* <input
             className="flex-grow px-2 py-1 border"
             type="text"
             name="department"
-          />
-          <DropdownMenu options={departments}/>
+          /> */}
+        <DropdownMenu className="absolute left-0 z-10 mt-2 top-full" options={departments} />
+
         </div>
       </section>
 
