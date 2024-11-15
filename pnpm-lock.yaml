@@ -7,6 +7,22 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@gmaxdev/dropdown-plugin':
+        specifier: latest
+        version: 0.1.7
+      axios:
+        specifier: ^1.7.7
+        version: 1.7.7
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.26.1
+        version: 6.26.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -408,6 +424,9 @@ packages:
   '@eslint/plugin-kit@0.2.0':
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@gmaxdev/dropdown-plugin@0.1.7':
+    resolution: {integrity: sha512-ztOX8G+Dn9ZGCIlM49fkC5/lrf3DFsnORVXol33zq9qvgxLtKsCcliKUkBIgL3OmFs6gcc5JYL/dLR44Vf7ezQ==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -2236,6 +2255,11 @@ snapshots:
   '@eslint/plugin-kit@0.2.0':
     dependencies:
       levn: 0.4.1
+
+  '@gmaxdev/dropdown-plugin@0.1.7':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
