@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { filterEmployees } from '../../components/filterEmployees';
+import { filterEmployees } from "../../components/filterEmployees";
 
 export default function ViewEmployee() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);        // Pour gérer les erreurs
+  const [error, setError] = useState(null); // Pour gérer les erreurs
   const [currentPage, setCurrentPage] = useState(1); // Page actuelle
   const [employeesPerPage, setEmployeesPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState("");  // Requête de recherche
+  const [searchQuery, setSearchQuery] = useState(""); // Requête de recherche
 
   // J'utilise useEffect pour effectuer la requête au backend lors du premier rendu
   useEffect(() => {
@@ -19,14 +19,14 @@ export default function ViewEmployee() {
         return response.json();
       })
       .then((data) => {
-        setEmployees(data);  // Mettre à jour le state avec les données
-        setLoading(false);   // Désactiver l'état de chargement
+        setEmployees(data); // Mettre à jour le state avec les données
+        setLoading(false); // Désactiver l'état de chargement
       })
       .catch((error) => {
-        setError(error.message);  // Gérer les erreurs
+        setError(error.message); // Gérer les erreurs
         setLoading(false);
       });
-  }, []);  // Le tableau vide [] sert à exécuté uniquement useEffect au montage du composant
+  }, []); // Le tableau vide [] sert à exécuté uniquement useEffect au montage du composant
 
   // Filtrer les employés en fonction de la recherche
   const filteredEmployees = filterEmployees(employees, searchQuery);
@@ -34,7 +34,10 @@ export default function ViewEmployee() {
   // Pagination
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-  const currentEmployees = filteredEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee);
+  const currentEmployees = filteredEmployees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
 
   const goToNextPage = () => {
     if (currentPage < Math.ceil(filteredEmployees.length / employeesPerPage)) {
@@ -51,15 +54,15 @@ export default function ViewEmployee() {
   // Gérer le changement du nombre d'entrées à afficher par page
   const handleEntriesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEmployeesPerPage(Number(event.target.value));
-    setCurrentPage(1);  // Reset à la première page lorsque le nombre d'entrées change
+    setCurrentPage(1); // Reset à la première page lorsque le nombre d'entrées change
   };
 
   if (loading) {
-    return <div>Chargement des employés...</div>;  // Affichage en cours de chargement
+    return <div>Chargement des employés...</div>; // Affichage en cours de chargement
   }
 
   if (error) {
-    return <div>Erreur : {error}</div>;  // Affichage en cas d'erreur
+    return <div>Erreur : {error}</div>; // Affichage en cas d'erreur
   }
 
   return (
@@ -133,7 +136,9 @@ export default function ViewEmployee() {
       </div>
       <div className="flex justify-between w-full mt-5">
         <div>
-          Showing {indexOfFirstEmployee + 1} to {Math.min(indexOfLastEmployee, filteredEmployees.length)} of {filteredEmployees.length}
+          Showing {indexOfFirstEmployee + 1} to{" "}
+          {Math.min(indexOfLastEmployee, filteredEmployees.length)} of{" "}
+          {filteredEmployees.length}
         </div>
         <div className="flex justify-between w-40">
           <button onClick={goToPreviousPage} disabled={currentPage === 1}>
@@ -141,7 +146,10 @@ export default function ViewEmployee() {
           </button>
           <button
             onClick={goToNextPage}
-            disabled={currentPage === Math.ceil(filteredEmployees.length / employeesPerPage)} // Calcul le nombre de page nécessaire et arrondi au supérieur
+            disabled={
+              currentPage ===
+              Math.ceil(filteredEmployees.length / employeesPerPage)
+            } // Calcul le nombre de page nécessaire et arrondi au supérieur
           >
             Next
           </button>
