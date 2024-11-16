@@ -1,0 +1,7 @@
+public
+src
+.gitignore
+eslint.config.js
+index.html
+vite.config.js
+node_modules
